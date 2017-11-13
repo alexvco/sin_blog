@@ -22,14 +22,15 @@ helpers do
   alias_method :h, :escape_html
 end
 
-
-
-# index
-get "/" do
-  @posts = Post.order("created_at DESC")
-  @title = "Welcome."
-  erb :"posts/index"
+# home, posts#index
+['/', '/posts'].each do |path|
+  get path do
+    @posts = Post.order("created_at DESC")
+    @title = "Welcome."
+    erb :"posts/index"
+  end
 end
+
 
 
 
