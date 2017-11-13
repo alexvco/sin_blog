@@ -13,9 +13,15 @@
 </head>
 <body>
   <% if false %>
-  http://roseweixel.github.io/blog/2014/10/28/flash-messages-with-sessions-in-sinatra/
+    http://roseweixel.github.io/blog/2014/10/28/flash-messages-with-sessions-in-sinatra/
 
-  what is::: slim template, :layout => false, :locals => locals
+    what is::: slim template, :layout => false, :locals => locals
+
+    https://github.com/SFEley/sinatra-flash
+
+    https://github.com/mjhea0/sinatra-blog/blob/master/views/layout.erb
+
+    http://mherman.org/blog/2013/06/08/designing-with-class-sinatra-plus-postgresql-plus-heroku/#.Wgiy3BNSw_V
     <% if flash[:notice] %>
       <p class="alert alert-success"><%= flash[:notice] %>
     <% end %>
