@@ -1,5 +1,20 @@
 <h2>Create Post</h2>
 <br/>
+  <% if @post.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+    <% if @post.errors.count > 1 %>
+      <h2>There were <%= @post.errors.count %> errors that prohibited this post from being saved:</h2>
+    <% else %>
+      <h2>There is <%= @post.errors.count %> error that prohibited this post from being saved:</h2>
+    <% end %>
+      <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<br>
 <form action="/posts" method="post"role="form">
  <div class="form-group">
    <label for="post_title">Title:</label>

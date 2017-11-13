@@ -22,16 +22,10 @@
     https://github.com/mjhea0/sinatra-blog/blob/master/views/layout.erb
 
     http://mherman.org/blog/2013/06/08/designing-with-class-sinatra-plus-postgresql-plus-heroku/#.Wgiy3BNSw_V
-    <% if flash[:notice] %>
-      <p class="alert alert-success"><%= flash[:notice] %>
-    <% end %>
-    <% if flash[:error] %>
-      <p class="alert alert-error"><%= flash[:error] %>
-    <% end %>
   <% end %>
 
-  <% if session[:error] %>
-    <p><%= session[:error] %></p>
+  <% if @success_message %>
+    <p class="alert alert-success"><%= @success_message %>
   <% end %>
 
   <%= erb(:mypartial) %>

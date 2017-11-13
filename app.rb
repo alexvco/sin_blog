@@ -4,12 +4,10 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require './environments'
 
-
 set :server, :puma
 set :port, 3000
 
 enable :sessions
-
 
 
 class Post < ActiveRecord::Base  
@@ -33,31 +31,33 @@ get "/" do
   erb :"posts/index"
 end
 
+
+
 # new
 get "/posts/new" do
   @title = "Create post"
   @post = Post.new
+  # @error_message = session[:error]
+  # session[:error] = nil
   erb :"posts/new"
 end
 
-# create
-# post "/posts" do
-#   @post = Post.new(params[:post])
-#   if @post.save
-#     redirect "posts/#{@post.id}"
-#   else
-#     erb :"posts/new"
-#   end
-# end
 
+
+#create
 post "/posts" do
  @post = Post.new(params[:post])
  if @post.save
-   redirect "posts/#{@post.id}", :notice => 'Congrats! Love the new post. (This message will disappear in 4 seconds.)'
+  session[:notice] = 'Congrats! Love the new post'
+  redirect "posts/#{@post.id}"
  else
-   # redirect "posts/new", :error => 'Something went wrong. Try again. (This message will disappear in 4 seconds.)'
-   session[:error] = "errrror"
-   redirect "posts/new"
+  # puts env
+  # puts request
+  # @post.errors.full_messages.each do |message|
+  #   puts message
+  # end
+  # session[:error] = "Custom error message here"
+  erb :"posts/new"
  end
 end
 
@@ -67,8 +67,12 @@ end
 get "/posts/:id" do
   @post = Post.find(params[:id])
   @title = @post.title
+  @success_message = session[:notice]
+  session[:notice] = nil
   erb :"posts/show"
 end
+
+
 
 # edit
 get "/posts/:id/edit" do
@@ -76,6 +80,8 @@ get "/posts/:id/edit" do
   @title = "Edit Form"
   erb :"posts/edit"
 end
+
+
 
 # update
 put "/posts/:id" do
