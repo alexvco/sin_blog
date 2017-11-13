@@ -6,7 +6,8 @@ require './environments'
 
 set :server, :puma
 set :port, 3000
-
+set :method_override, true
+use Rack::MethodOverride
 enable :sessions
 
 
@@ -95,7 +96,7 @@ end
 
 
 # delete 
-delete "posts/:id" do
+delete "posts/:id/delete" do
   @post = Post.find(params[:id])
   @post.destroy
   redirect "/posts"
