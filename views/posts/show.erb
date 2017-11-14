@@ -11,7 +11,7 @@
       e.preventDefault();
       var form = document.createElement('form');
       var formContent = "<input name='_method' type='hidden' value='delete' />";
-      formContent += "<input type='submit' />";
+      formContent += "<input type='submit' />"; // Must trigger submit by click on a button, else "submit" event handler won't work!
       form.innerHTML = formContent;
       form.method = 'post';
       form.action = this.href;

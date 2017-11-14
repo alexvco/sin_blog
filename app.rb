@@ -96,7 +96,7 @@ end
 
 
 # delete 
-delete "posts/:id" do
+delete "/posts/:id" do
   @post = Post.find(params[:id])
   @post.destroy
   redirect "/posts"
