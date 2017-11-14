@@ -6,8 +6,8 @@ require './environments'
 
 set :server, :puma
 set :port, 3000
-set :method_override, true
-use Rack::MethodOverride
+# set :method_override, true
+# use Rack::MethodOverride
 enable :sessions
 
 
