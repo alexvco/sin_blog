@@ -3,4 +3,23 @@
 <br>
 <a href="/posts/<%= @post.id %>/edit">Edit Post</a>
 <br>
-<a href="/posts/<%= @post.id %>/delete" id="delete_post" name="_method" value="delete" >Delete Post</a>
+<a href="/posts/<%= @post.id %>" id="delete_post" data-method="delete" rel="nofollow" data-confirm="Are you sure?" value="delete" >Delete Post</a>
+
+<script>
+  (function(){
+    $('#delete_post').on('click', function(e) {
+      e.preventDefault();
+      var form = document.createElement('form');
+      var formContent = "<input name='_method' type='hidden' value='delete' />";
+      formContent += "<input type='submit' />";
+      form.innerHTML = formContent;
+      form.method = 'post';
+      form.action = this.href;
+      // form.target = this.target; // not necessary
+      form.style.display = 'none';
+      document.body.appendChild(form);
+      form.querySelector('[type="submit"]').click();
+      // console.log(form);
+    })
+  }());
+</script>
