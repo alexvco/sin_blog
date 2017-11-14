@@ -1,4 +1,5 @@
 # note that for local database, I had to first go into psql and manually create the sin_blog_development database, then i was able to create the migration and run rake db:migrate
+# Nevermind the comment above, you can do rake db:create
 configure :development do
  set :database, {adapter: 'postgresql',  encoding: 'unicode', database: 'sin_blog_development', pool: 2, username: ENV['mydbusername'], password: ENV['mydbpassword']}
  set :show_exceptions, true

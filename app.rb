@@ -24,7 +24,7 @@ helpers do
 end
 
 # home, posts#index
-['/', '/posts'].each do |path|
+['/', '/posts', '/posts/'].each do |path|
   get path do
     @posts = Post.order("created_at DESC")
     @title = "Welcome."
@@ -96,7 +96,7 @@ end
 
 
 # delete 
-delete "posts/:id/delete" do
+delete "/posts/:id" do
   @post = Post.find(params[:id])
   @post.destroy
   redirect "/posts"
