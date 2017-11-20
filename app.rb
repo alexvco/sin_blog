@@ -112,7 +112,7 @@ end
 
 
 
-# show
+# show comments
 get "/posts/:id/comments" do
   @post = Post.find(params[:id])
   @title = @post.title
