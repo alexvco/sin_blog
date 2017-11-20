@@ -1,27 +1,21 @@
-# app.rb
-
 require 'sinatra'
 require 'sinatra/activerecord'
 require './environments'
+require './models/post'
+require './models/comment'
 
 set :server, :puma
 set :port, 3000
-# set :method_override, true
-# use Rack::MethodOverride
 enable :sessions
 
 
-class Post < ActiveRecord::Base  
-  validates :title, presence: true, length: { minimum: 5 }
-  validates :body, presence: true
-end
+# set :method_override, true
+# use Rack::MethodOverride
 
 
 
-helpers do
-  include Rack::Utils
-  alias_method :h, :escape_html
-end
+
+
 
 # home, posts#index
 ['/', '/posts', '/posts/'].each do |path|
@@ -35,6 +29,21 @@ end
 
 
 
+
+
+# show
+get "/posts/:id" do
+  @post = Post.find(params[:id])
+  @title = @post.title
+  @success_message = session[:notice]
+  session[:notice] = nil
+  erb :"posts/show"
+end
+
+
+
+
+
 # new
 get "/posts/new" do
   @title = "Create post"
@@ -43,6 +52,8 @@ get "/posts/new" do
   # session[:error] = nil
   erb :"posts/new"
 end
+
+
 
 
 
@@ -65,15 +76,6 @@ end
 
 
 
-# show
-get "/posts/:id" do
-  @post = Post.find(params[:id])
-  @title = @post.title
-  @success_message = session[:notice]
-  session[:notice] = nil
-  erb :"posts/show"
-end
-
 
 
 # edit
@@ -82,6 +84,8 @@ get "/posts/:id/edit" do
   @title = "Edit Form"
   erb :"posts/edit"
 end
+
+
 
 
 
@@ -95,6 +99,7 @@ end
 
 
 
+
 # delete 
 delete "/posts/:id" do
   @post = Post.find(params[:id])
@@ -103,3 +108,25 @@ delete "/posts/:id" do
 end
 
 
+
+
+
+
+# show
+get "/posts/:id/comments" do
+  @post = Post.find(params[:id])
+  @title = @post.title
+  @comments = @post.comments
+  erb :"comments/show"
+end
+
+
+
+
+
+
+
+helpers do
+  include Rack::Utils
+  alias_method :h, :escape_html
+end

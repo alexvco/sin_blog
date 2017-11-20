@@ -1,0 +1,9 @@
+<h2>Comments Page</h2>
+<ul>
+<% @comments.each do |comment| %>
+ <li>
+   <h4><%= h comment.content %></a></h4>
+   <p>Created: <%= h comment.created_at %></p>
+ </li>
+<% end %>
+</ul>
